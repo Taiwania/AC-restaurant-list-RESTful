@@ -14,7 +14,7 @@
 
 ## 安裝流程
 1. 打開 Terminal，cd 至預定存放本專案的目錄資料夾，執行 clone 程序：
-``git clone ......``
+``git clone https://github.com/Taiwania/AC-restaurant-list``
 
 2. 切換到專案資料夾並安裝 npm：
 ``cd restaurant-list``
@@ -29,4 +29,4 @@
 您可以使用瀏覽器打開 http://localhost:3000 即可進入網站。
 
 ## 開發人員
-Taiwania Justo
+[Taiwania](https://github.com/Taiwania) 
