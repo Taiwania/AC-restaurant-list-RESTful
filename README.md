@@ -17,7 +17,7 @@
 ``git clone https://github.com/Taiwania/AC-restaurant-list``
 
 2. 切換到專案資料夾並安裝 npm：
-``cd restaurant-list``
+``cd AC-restaurant-list``
 ``npm install ``
 
 3. 載入 nodemon：
