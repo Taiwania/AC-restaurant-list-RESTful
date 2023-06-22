@@ -1,7 +1,8 @@
-// set express and port
+// set mongoose, express and port
 const express = require('express')
 const app = express()
 const port = 3000
+const mongoose = require("mongoose");
 
 // set handlebars
 const exphbs = require('express-handlebars')
@@ -11,11 +12,39 @@ app.set('view engine', 'handlebars')
 // import bootstrap and popper
 app.use(express.static('public'))
 
+// dotenv
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
+// Connect the mongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.on("error", () => {
+  console.log("MongoDB is not connected.");
+});
+
+db.once("open", () => {
+  console.log("MongoDB is connected!");
+});
+
 // import restaurant lists
 const restaurantList = require('./restaurant.json')
+const Restaurant = require('./models/restaurant')
 
+// index
 app.get ('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then(restaurants =>
+      res.render("index", { restaurants })
+    )
+    .catch(error => console.log(error));
 })
 
 app.get ('/restaurant/:restaurant_id', (req, res) => {
