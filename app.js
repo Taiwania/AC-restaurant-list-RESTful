@@ -108,6 +108,14 @@ app.post("/restaurant/:id/edit", (req, res) => {
     .catch(error => console.log(error))
 });
 
+// Delete
+app.post('/restaurant/:id/delete', (req, res) =>{
+  const id = req.params.id
+  Restaurant.findByIdAndDelete(id)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // search
 app.get("/search", (req, res) => {
   if (!req.query.keyword) {
