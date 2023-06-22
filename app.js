@@ -39,9 +39,6 @@ db.once("open", () => {
   console.log("MongoDB is connected!");
 });
 
-// import restaurant lists
-const Restaurant = require("./models/restaurant");
-
 // online listener
 app.listen(port, () => {
   console.log(`The website http://localhost:${port} is online.`);
