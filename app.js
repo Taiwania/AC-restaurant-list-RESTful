@@ -55,11 +55,11 @@ app.get("/restaurant/:id", (req, res) => {
 });
 
 // add new restaurant
-app.get('/new', (req, res) => {
-  return res.render('submit')
-})
+app.get("/new", (req, res) => {
+  return res.render("submit");
+});
 
-app.post('/restaurant', (req, res) => {
+app.post("/restaurant", (req, res) => {
   const newRestaurant = {
     name: req.body.name,
     name_en: req.body.name_en,
@@ -69,14 +69,13 @@ app.post('/restaurant', (req, res) => {
     image: req.body.image,
     phone: req.body.phone,
     rating: req.body.rating,
-    description: req.body.description
-  }
+    description: req.body.description,
+  };
 
   return Restaurant.create(newRestaurant)
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-  }
-)
+    .then(() => res.redirect("/"))
+    .catch((error) => console.log(error));
+});
 
 // search
 app.get("/search", (req, res) => {

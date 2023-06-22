@@ -40,3 +40,16 @@
     <a href="/" class="btn btn-major">返回首頁</a>
   </form>
 </div>
+
+<script>
+  document.querySelector('form').addEventListener('submit', function (event) {
+    const inputs = document.querySelectorAll('input');
+    for (let i = 0; i < inputs.length; i++) {
+      if (inputs[i].value === '') {
+        event.preventDefault();
+        alert('請填寫所有欄位。');
+        break;
+      }
+    }
+  });
+</script>
