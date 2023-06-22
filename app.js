@@ -9,7 +9,7 @@ const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// import bootstrap, popper and urlencoder
+// import bootstrap, popper and URL encoder
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
@@ -54,11 +54,12 @@ app.get("/restaurant/:id", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-// add new restaurant
+// show the new restaurant submit form
 app.get("/new", (req, res) => {
   return res.render("submit");
 });
 
+// add new restaurant
 app.post("/restaurant", (req, res) => {
   const newRestaurant = {
     name: req.body.name,
