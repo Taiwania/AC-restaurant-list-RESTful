@@ -2,9 +2,11 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const router = require('./routes')
+
+// mongoDB
+require('./config/mongoose')
 
 // set handlebars
 const exphbs = require("express-handlebars");
@@ -16,28 +18,6 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(router)
-
-// dotenv
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
-// Mongoose setting and connect the mongoDB
-mongoose.set("useFindAndModify", false);
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const db = mongoose.connection;
-
-db.on("error", () => {
-  console.log("MongoDB is not connected.");
-});
-
-db.once("open", () => {
-  console.log("MongoDB is connected!");
-});
 
 // online listener
 app.listen(port, () => {
