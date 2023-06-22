@@ -9,8 +9,9 @@ const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// import bootstrap and popper
+// import bootstrap, popper and urlencoder
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 // dotenv
 if (process.env.NODE_ENV !== "production") {
@@ -57,6 +58,25 @@ app.get("/restaurant/:id", (req, res) => {
 app.get('/new', (req, res) => {
   return res.render('submit')
 })
+
+app.post('/restaurant', (req, res) => {
+  const newRestaurant = {
+    name: req.body.name,
+    name_en: req.body.name_en,
+    category: req.body.category,
+    location: req.body.location,
+    google_map: req.body.google_map,
+    image: req.body.image,
+    phone: req.body.phone,
+    rating: req.body.rating,
+    description: req.body.description
+  }
+
+  return Restaurant.create(newRestaurant)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+  }
+)
 
 // search
 app.get("/search", (req, res) => {
