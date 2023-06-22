@@ -1,17 +1,19 @@
-// set mongoose, express and port
+// set mongoose, method-override express and port
 const express = require("express");
 const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
 // set handlebars
 const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// import bootstrap, popper and URL encoder
+// import bootstrap, popper, method-override and URL encoder
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 // dotenv
 if (process.env.NODE_ENV !== "production") {
@@ -80,16 +82,16 @@ app.post("/restaurant", (req, res) => {
 });
 
 // Show the edit page
-app.get('/restaurant/:id/edit', (req, res) => {
-  const id = req.params.id
+app.get("/restaurant/:id/edit", (req, res) => {
+  const id = req.params.id;
   return Restaurant.findById(id)
     .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
-    .catch(error => console.log(error))
-})
+    .then((restaurant) => res.render("edit", { restaurant }))
+    .catch((error) => console.log(error));
+});
 
 // Edit
-app.post("/restaurant/:id/edit", (req, res) => {
+app.put("/restaurant/:id", (req, res) => {
   const id = req.params.id;
   const editedRestaurant = {
     name: req.body.name,
@@ -105,16 +107,16 @@ app.post("/restaurant/:id/edit", (req, res) => {
 
   return Restaurant.findByIdAndUpdate(id, editedRestaurant)
     .then(() => res.redirect(`/restaurant/${id}`))
-    .catch(error => console.log(error))
+    .catch((error) => console.log(error));
 });
 
 // Delete
-app.post('/restaurant/:id/delete', (req, res) =>{
-  const id = req.params.id
+app.delete("/restaurant/:id", (req, res) => {
+  const id = req.params.id;
   Restaurant.findByIdAndDelete(id)
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
+    .then(() => res.redirect("/"))
+    .catch((error) => console.log(error));
+});
 
 // search
 app.get("/search", (req, res) => {
