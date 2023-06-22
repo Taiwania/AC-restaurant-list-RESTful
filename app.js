@@ -47,9 +47,12 @@ app.get ('/', (req, res) => {
     .catch(error => console.log(error));
 })
 
-app.get ('/restaurant/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('details', { restaurant: restaurant })
+app.get ('/restaurant/:id', (req, res) => {
+  const RestaurantId = req.params.id
+  return Restaurant.findById(RestaurantId)
+    .lean()
+    .then((restaurant) => res.render("details", { restaurant: restaurant }))
+    .catch(error => console.log(error));
 })
 
 app.get ('/search', (req, res) => {
