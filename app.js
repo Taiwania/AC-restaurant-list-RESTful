@@ -56,12 +56,21 @@ app.get ('/restaurant/:id', (req, res) => {
 })
 
 app.get ('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurant = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || 
-    restaurant.category.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurants: restaurant, keyword: keyword })
+  if (!req.query.keyword) {
+    res.redirect("/")
+  }
+
+  const keyword = req.query.keyword.trim().toLocaleLowerCase()
+  const filter = {
+    $or: [
+      { name: new RegExp(keyword, 'i') },
+      { category: new RegExp(keyword, 'i') }
+    ]
+  };
+  return Restaurant.find(filter)
+    .lean()
+    .then((restaurant) => res.render("index", { restaurants: restaurant, keyword: keyword }))
+    .catch(error => console.log(error));
 })
 
 // online listener
