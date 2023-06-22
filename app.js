@@ -34,7 +34,6 @@ db.once("open", () => {
 });
 
 // import restaurant lists
-const restaurantList = require('./restaurant.json')
 const Restaurant = require('./models/restaurant')
 
 // index
