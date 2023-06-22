@@ -42,15 +42,6 @@ db.once("open", () => {
 // import restaurant lists
 const Restaurant = require("./models/restaurant");
 
-// details
-app.get("/restaurant/:id", (req, res) => {
-  const RestaurantId = req.params.id;
-  return Restaurant.findById(RestaurantId)
-    .lean()
-    .then((restaurant) => res.render("details", { restaurant: restaurant }))
-    .catch((error) => console.log(error));
-});
-
 // show the new restaurant submit form
 app.get("/new", (req, res) => {
   return res.render("submit");
