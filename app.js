@@ -18,7 +18,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-// Connect the mongoDB
+// Mongoose setting and connect the mongoDB
+mongoose.set("useFindAndModify", false);
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -76,6 +77,35 @@ app.post("/restaurant", (req, res) => {
   return Restaurant.create(newRestaurant)
     .then(() => res.redirect("/"))
     .catch((error) => console.log(error));
+});
+
+// Show the edit page
+app.get('/restaurant/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+// Edit
+app.post("/restaurant/:id/edit", (req, res) => {
+  const id = req.params.id;
+  const editedRestaurant = {
+    name: req.body.name,
+    name_en: req.body.name_en,
+    category: req.body.category,
+    location: req.body.location,
+    google_map: req.body.google_map,
+    image: req.body.image,
+    phone: req.body.phone,
+    rating: req.body.rating,
+    description: req.body.description,
+  };
+
+  return Restaurant.findByIdAndUpdate(id, editedRestaurant)
+    .then(() => res.redirect(`/restaurant/${id}`))
+    .catch(error => console.log(error))
 });
 
 // search
