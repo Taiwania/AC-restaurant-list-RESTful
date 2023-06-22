@@ -47,6 +47,7 @@ app.get ('/', (req, res) => {
     .catch(error => console.log(error));
 })
 
+// details
 app.get ('/restaurant/:id', (req, res) => {
   const RestaurantId = req.params.id
   return Restaurant.findById(RestaurantId)
@@ -55,6 +56,7 @@ app.get ('/restaurant/:id', (req, res) => {
     .catch(error => console.log(error));
 })
 
+// search
 app.get ('/search', (req, res) => {
   if (!req.query.keyword) {
     res.redirect("/")
