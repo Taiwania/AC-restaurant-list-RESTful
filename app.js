@@ -42,30 +42,6 @@ db.once("open", () => {
 // import restaurant lists
 const Restaurant = require("./models/restaurant");
 
-// show the new restaurant submit form
-app.get("/new", (req, res) => {
-  return res.render("submit");
-});
-
-// add new restaurant
-app.post("/restaurant", (req, res) => {
-  const newRestaurant = {
-    name: req.body.name,
-    name_en: req.body.name_en,
-    category: req.body.category,
-    location: req.body.location,
-    google_map: req.body.google_map,
-    image: req.body.image,
-    phone: req.body.phone,
-    rating: req.body.rating,
-    description: req.body.description,
-  };
-
-  return Restaurant.create(newRestaurant)
-    .then(() => res.redirect("/"))
-    .catch((error) => console.log(error));
-});
-
 // Show the edit page
 app.get("/restaurant/:id/edit", (req, res) => {
   const id = req.params.id;
