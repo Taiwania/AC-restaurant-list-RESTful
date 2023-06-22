@@ -42,14 +42,6 @@ db.once("open", () => {
 // import restaurant lists
 const Restaurant = require("./models/restaurant");
 
-// Delete
-app.delete("/restaurant/:id", (req, res) => {
-  const id = req.params.id;
-  Restaurant.findByIdAndDelete(id)
-    .then(() => res.redirect("/"))
-    .catch((error) => console.log(error));
-});
-
 // search
 app.get("/search", (req, res) => {
   if (!req.query.keyword) {
