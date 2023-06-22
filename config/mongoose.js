@@ -21,4 +21,4 @@ db.once("open", () => {
   console.log("MongoDB is connected!");
 });
 
-module.exports = db
+module.exports = db;

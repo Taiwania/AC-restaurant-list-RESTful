@@ -1,6 +1,6 @@
 const Restaurant = require("../restaurant");
 const restaurantList = require("../restaurant.json").results;
-const db = require('../../config/mongoose')
+const db = require("../../config/mongoose");
 
 db.once("open", () => {
   Restaurant.create(restaurantList);

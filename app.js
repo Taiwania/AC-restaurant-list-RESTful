@@ -3,10 +3,10 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const methodOverride = require("method-override");
-const router = require('./routes')
+const router = require("./routes");
 
 // mongoDB
-require('./config/mongoose')
+require("./config/mongoose");
 
 // set handlebars
 const exphbs = require("express-handlebars");
@@ -17,7 +17,7 @@ app.set("view engine", "handlebars");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.use(router)
+app.use(router);
 
 // online listener
 app.listen(port, () => {

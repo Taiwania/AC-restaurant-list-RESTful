@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Import restaurant model
-const Restaurant = require('../../models/restaurant')
+const Restaurant = require("../../models/restaurant");
 
 // Home route
 router.get("/", (req, res) => {
@@ -14,4 +14,4 @@ router.get("/", (req, res) => {
 });
 
 // Export router
-module.exports = router
+module.exports = router;
