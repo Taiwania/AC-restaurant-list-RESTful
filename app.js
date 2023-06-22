@@ -42,27 +42,6 @@ db.once("open", () => {
 // import restaurant lists
 const Restaurant = require("./models/restaurant");
 
-// search
-app.get("/search", (req, res) => {
-  if (!req.query.keyword) {
-    res.redirect("/");
-  }
-
-  const keyword = req.query.keyword.trim().toLocaleLowerCase();
-  const filter = {
-    $or: [
-      { name: new RegExp(keyword, "i") },
-      { category: new RegExp(keyword, "i") },
-    ],
-  };
-  return Restaurant.find(filter)
-    .lean()
-    .then((restaurant) =>
-      res.render("index", { restaurants: restaurant, keyword: keyword })
-    )
-    .catch((error) => console.log(error));
-});
-
 // online listener
 app.listen(port, () => {
   console.log(`The website http://localhost:${port} is online.`);
