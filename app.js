@@ -1,19 +1,21 @@
-// set mongoose, method-override express and port
+// set mongoose, method-override, express, router and port
 const express = require("express");
 const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
+const router = require('./routes')
 
 // set handlebars
 const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// import bootstrap, popper, method-override and URL encoder
+// import bootstrap, popper, method-override, routers and URL encoder
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(router)
 
 // dotenv
 if (process.env.NODE_ENV !== "production") {
@@ -39,14 +41,6 @@ db.once("open", () => {
 
 // import restaurant lists
 const Restaurant = require("./models/restaurant");
-
-// index
-app.get("/", (req, res) => {
-  Restaurant.find()
-    .lean()
-    .then((restaurants) => res.render("index", { restaurants }))
-    .catch((error) => console.log(error));
-});
 
 // details
 app.get("/restaurant/:id", (req, res) => {
