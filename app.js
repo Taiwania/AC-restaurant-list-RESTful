@@ -1,16 +1,16 @@
 // set mongoose, express and port
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require("express");
+const app = express();
+const port = 3000;
 const mongoose = require("mongoose");
 
 // set handlebars
-const exphbs = require('express-handlebars')
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.set('view engine', 'handlebars')
+const exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // import bootstrap and popper
-app.use(express.static('public'))
+app.use(express.static("public"));
 
 // dotenv
 if (process.env.NODE_ENV !== "production") {
@@ -34,47 +34,52 @@ db.once("open", () => {
 });
 
 // import restaurant lists
-const Restaurant = require('./models/restaurant')
+const Restaurant = require("./models/restaurant");
 
 // index
-app.get ('/', (req, res) => {
+app.get("/", (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurants =>
-      res.render("index", { restaurants })
-    )
-    .catch(error => console.log(error));
-})
+    .then((restaurants) => res.render("index", { restaurants }))
+    .catch((error) => console.log(error));
+});
 
 // details
-app.get ('/restaurant/:id', (req, res) => {
-  const RestaurantId = req.params.id
+app.get("/restaurant/:id", (req, res) => {
+  const RestaurantId = req.params.id;
   return Restaurant.findById(RestaurantId)
     .lean()
     .then((restaurant) => res.render("details", { restaurant: restaurant }))
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
+});
+
+// add new restaurant
+app.get('/new', (req, res) => {
+  return res.render('submit')
 })
 
 // search
-app.get ('/search', (req, res) => {
+app.get("/search", (req, res) => {
   if (!req.query.keyword) {
-    res.redirect("/")
+    res.redirect("/");
   }
 
-  const keyword = req.query.keyword.trim().toLocaleLowerCase()
+  const keyword = req.query.keyword.trim().toLocaleLowerCase();
   const filter = {
     $or: [
-      { name: new RegExp(keyword, 'i') },
-      { category: new RegExp(keyword, 'i') }
-    ]
+      { name: new RegExp(keyword, "i") },
+      { category: new RegExp(keyword, "i") },
+    ],
   };
   return Restaurant.find(filter)
     .lean()
-    .then((restaurant) => res.render("index", { restaurants: restaurant, keyword: keyword }))
-    .catch(error => console.log(error));
-})
+    .then((restaurant) =>
+      res.render("index", { restaurants: restaurant, keyword: keyword })
+    )
+    .catch((error) => console.log(error));
+});
 
 // online listener
 app.listen(port, () => {
-  console.log(`The website http://localhost:${port} is online.`)
-})
+  console.log(`The website http://localhost:${port} is online.`);
+});
