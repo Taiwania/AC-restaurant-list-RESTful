@@ -16,6 +16,7 @@
 3.  Express-Handlebars version 3.0.0
 4.  Mongoose version 5.9.7
 5.  Dotenv version 16.3.1
+6.  Method-override 3.0.0
 
 ## 安裝流程
 1.  打開終端機，cd 移動到預定放置本專案的資料夾，執行以下指令以複製本專案：
