@@ -1,16 +1,20 @@
 # 我的餐廳清單
 
 ## 簡介
+
 本網站採用 Node.js 以及 Express 打造，目的為顯示使用者喜愛的餐廳清單，並包含下列兩項功能：
+
 1. 另頁顯示個別餐廳的詳細資訊。
 2. 透過搜尋功能（名稱或餐廳分類）尋找特定的餐廳。
 3. 新增、刪除、修改餐廳資料。
 
 ## 畫面
+
 ![主畫面](./screenshots/index.png)
 ![餐廳詳細資訊](./screenshots/detail.png)
 
 ## 環境建置
+
 1.  Node.js version 19.3.0
 2.  Express version 4.17.1
 3.  Express-Handlebars version 3.0.0
@@ -19,14 +23,15 @@
 6.  Method-override 3.0.0
 
 ## 安裝流程
+
 1.  打開終端機，cd 移動到預定放置本專案的資料夾，執行以下指令以複製本專案：
-   
+
     ```
     git clone https://github.com/Taiwania/AC-restaurant-list
     ```
 
 2.  在該專案資料夾中，以終端機方式執行安裝 npm：
-    
+
     ```
     npm install
     ```
