@@ -5,7 +5,7 @@ const router = express.Router()
 // Import restaurant model
 const Restaurant = require('../../models/restaurant')
 
-// Details route
+// Show the detail page
 router.get('/:id', (req, res) => {
   const RestaurantId = req.params.id
   return Restaurant.findById(RestaurantId)
@@ -23,7 +23,7 @@ router.get('/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// Edit
+// Edit the details
 router.put('/:id', (req, res) => {
   const id = req.params.id
   const editedRestaurant = {
@@ -43,7 +43,7 @@ router.put('/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// Delete
+// Delete a restaurant
 router.delete('/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findByIdAndDelete(id)
