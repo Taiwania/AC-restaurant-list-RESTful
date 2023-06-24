@@ -1,22 +1,22 @@
 // Set Express and router
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 // Import restaurant model
-const Restaurant = require("../../models/restaurant");
+const Restaurant = require('../../models/restaurant')
 
 // Show the edit page
-router.get("/:id/edit", (req, res) => {
-  const id = req.params.id;
+router.get('/:id/edit', (req, res) => {
+  const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then((restaurant) => res.render("edit", { restaurant }))
-    .catch((error) => console.log(error));
-});
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
 
 // Edit
-router.put("/:id", (req, res) => {
-  const id = req.params.id;
+router.put('/:id', (req, res) => {
+  const id = req.params.id
   const editedRestaurant = {
     name: req.body.name,
     name_en: req.body.name_en,
@@ -26,13 +26,13 @@ router.put("/:id", (req, res) => {
     image: req.body.image,
     phone: req.body.phone,
     rating: req.body.rating,
-    description: req.body.description,
-  };
+    description: req.body.description
+  }
 
   return Restaurant.findByIdAndUpdate(id, editedRestaurant)
     .then(() => res.redirect(`/restaurant/${id}`))
-    .catch((error) => console.log(error));
-});
+    .catch(error => console.log(error))
+})
 
 // Export router
-module.exports = router;
+module.exports = router
