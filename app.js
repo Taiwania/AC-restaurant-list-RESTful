@@ -1,34 +1,38 @@
-// Set Express and port
+// Define Express and port
 const express = require('express')
 const app = express()
 const port = 3000
 
-// Set related patches
+// Define related patches
 const methodOverride = require('method-override')
 const session = require('express-session')
 
-// Import the router
+// Define the router
 const router = require('./routes')
 
-// Import Mongoose and MongoDB
+// Import the configs
 require('./config/mongoose')
+const usePassport = require('./config/passport')
 
-// Set and import Handlebars engine
+// Define and import Handlebars engine
 const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// Import related patches
+// Import related patches and configs
 app.use(methodOverride('_method'))
 app.use(session({
   secret: 'ACRestaurant',
   resave: false,
   saveUninitialized: true
 }))
+usePassport(app)
 
-// Import Bootstrap, Popper and routers
+// Import Bootstrap and Popper and routers
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
+
+// Import router
 app.use(router)
 
 // Online listener
