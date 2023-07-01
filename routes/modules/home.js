@@ -49,19 +49,29 @@ router.get('/new', (req, res) => {
 
 // Add new restaurant
 router.post('/restaurant', (req, res) => {
-  const newRestaurant = {
-    name: req.body.name,
-    name_en: req.body.name_en,
-    category: req.body.category,
-    location: req.body.location,
-    google_map: req.body.google_map,
-    image: req.body.image,
-    phone: req.body.phone,
-    rating: req.body.rating,
-    description: req.body.description
-  }
+  const {
+    name,
+    name_en,
+    category,
+    location,
+    google_map,
+    image,
+    phone,
+    rating,
+    description
+  } = req.body
 
-  return Restaurant.create(newRestaurant)
+  return Restaurant.create({
+    name,
+    name_en,
+    category,
+    location,
+    google_map,
+    image,
+    phone,
+    rating,
+    description
+  })
     .then(() => res.redirect('/'))
     .catch((error) => console.log(error))
 })
