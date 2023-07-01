@@ -9,8 +9,8 @@ const Restaurant = require('../../models/restaurant')
 router.get('/', (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurants => res.render('index', { restaurants }))
-    .catch(error => console.log(error))
+    .then((restaurants) => res.render('index', { restaurants }))
+    .catch((error) => console.log(error))
 })
 
 // Sort the restaurants on the index page (under construction)
@@ -38,8 +38,8 @@ router.get('/', (req, res) => {
   return Restaurant.find()
     .lean()
     .sort(sortOption)
-    .then(restaurant => res.render('index', { restaurants: restaurant }))
-    .catch(error => console.log(error))
+    .then((restaurant) => res.render('index', { restaurants: restaurant }))
+    .catch((error) => console.log(error))
 })
 
 // Show the new restaurant submit form
@@ -63,7 +63,7 @@ router.post('/restaurant', (req, res) => {
 
   return Restaurant.create(newRestaurant)
     .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+    .catch((error) => console.log(error))
 })
 
 // Export router
