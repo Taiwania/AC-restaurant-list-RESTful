@@ -8,9 +8,9 @@ const user = require('../../models/user')
 
 // Show the detail page
 router.get('/:id', (req, res) => {
-  const RestaurantId = req.params.id
+  const _id = req.params.id
   const userId = req.user._id
-  return Restaurant.findOne({ RestaurantId, userId })
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then((restaurant) => res.render('details', { restaurant: restaurant }))
     .catch((error) => console.log(error))
