@@ -37,14 +37,15 @@ router.get('/', (req, res) => {
         { category: new RegExp(keyword, 'i') }
       ]
     }
+    const userId = req.user._id
 
-    return Restaurant.find(filter)
+    return Restaurant.find({ userId, filter })
       .lean()
       .sort(sortOption)
-      .then(restaurant =>
+      .then((restaurant) =>
         res.render('index', { restaurants: restaurant, keyword: keyword })
       )
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
   }
 })
 

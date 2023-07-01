@@ -4,11 +4,14 @@ const router = express.Router()
 
 // Import restaurant model
 const Restaurant = require('../../models/restaurant')
+const user = require('../../models/user')
 
 // Home
 router.get('/', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
+    .sort({ _id: 'asc' })
     .then((restaurants) => res.render('index', { restaurants }))
     .catch((error) => console.log(error))
 })
@@ -35,7 +38,8 @@ router.get('/', (req, res) => {
       break
   }
 
-  return Restaurant.find()
+  const userId = req.user._id
+  return Restaurant.find({ userId })
     .lean()
     .sort(sortOption)
     .then((restaurant) => res.render('index', { restaurants: restaurant }))
@@ -49,6 +53,7 @@ router.get('/new', (req, res) => {
 
 // Add new restaurant
 router.post('/restaurant', (req, res) => {
+  const userId = req.user._id
   const {
     name,
     name_en,
@@ -62,6 +67,7 @@ router.post('/restaurant', (req, res) => {
   } = req.body
 
   return Restaurant.create({
+    userId,
     name,
     name_en,
     category,

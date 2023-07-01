@@ -4,11 +4,13 @@ const router = express.Router()
 
 // Import restaurant model
 const Restaurant = require('../../models/restaurant')
+const user = require('../../models/user')
 
 // Show the detail page
 router.get('/:id', (req, res) => {
   const RestaurantId = req.params.id
-  return Restaurant.findById(RestaurantId)
+  const userId = req.user._id
+  return Restaurant.findOne({ RestaurantId, userId })
     .lean()
     .then((restaurant) => res.render('details', { restaurant: restaurant }))
     .catch((error) => console.log(error))
@@ -16,8 +18,9 @@ router.get('/:id', (req, res) => {
 
 // Show the edit page
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then((restaurant) => res.render('edit', { restaurant }))
     .catch((error) => console.log(error))
@@ -25,7 +28,8 @@ router.get('/:id/edit', (req, res) => {
 
 // Edit the details
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
   const {
     name,
     name_en,
@@ -38,7 +42,9 @@ router.put('/:id', (req, res) => {
     description
   } = req.body
 
-  return Restaurant.findByIdAndUpdate(id, {
+  return Restaurant.findOneAndUpdate({
+    _id,
+    userId,
     name,
     name_en,
     category,
@@ -55,8 +61,9 @@ router.put('/:id', (req, res) => {
 
 // Delete a restaurant
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findByIdAndDelete(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  Restaurant.findOneAndDelete({ _id, userId })
     .then(() => res.redirect('/'))
     .catch((error) => console.log(error))
 })
