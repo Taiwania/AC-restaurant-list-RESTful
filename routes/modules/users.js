@@ -1,3 +1,4 @@
+// Set Express and router
 const express = require('express')
 const router = express.Router()
 
@@ -11,4 +12,5 @@ router.get('/register', (req, res) => {
   res.render('register')
 })
 
+// Export routes
 module.exports = router
