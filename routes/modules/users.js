@@ -20,12 +20,8 @@ router.post(
 
 // Logout
 router.get('/logout', (req, res) => {
-  req.logout((err) => {
-    if (err) {
-     return next(err)
-    }
-    res.redirect('/users/login')
-  })
+  req.logout()
+  res.redirect('/users/login')
 })
 
 // Show the register page
