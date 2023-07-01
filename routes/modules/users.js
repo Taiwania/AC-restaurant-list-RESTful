@@ -36,11 +36,8 @@ router.get('/register', (req, res) => {
 // Register
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
-
-  // 檢查使用者是否已經註冊
   User.findOne({ email })
     .then((user) => {
-      // 如果已經註冊：退回原本畫面
       if (user) {
         console.log('使用者已存在。User already exists.')
         res.render('register', {
@@ -50,7 +47,6 @@ router.post('/register', (req, res) => {
           confirmPassword
         })
       } else {
-        // 如果還沒註冊：寫入資料庫
         return User.create({
           name,
           email,

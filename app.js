@@ -7,12 +7,12 @@ const port = 3000
 const methodOverride = require('method-override')
 const session = require('express-session')
 
-// Define the router
-const router = require('./routes')
-
 // Import the configs
 require('./config/mongoose')
 const usePassport = require('./config/passport')
+
+// Define the router
+const router = require('./routes')
 
 // Define and import Handlebars engine
 const exphbs = require('express-handlebars')
@@ -27,6 +27,14 @@ app.use(session({
   saveUninitialized: true
 }))
 usePassport(app)
+
+// Define user authentication middleware
+app.use((req, res, next) => {
+  console.log(req.user)
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 
 // Import Bootstrap and Popper and routers
 app.use(express.static('public'))
