@@ -1,16 +1,21 @@
+// dotenv
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+// Import the configs
+require('./config/mongoose')
+const usePassport = require('./config/passport')
+
 // Define Express and port
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 // Define related patches
 const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
-
-// Import the configs
-require('./config/mongoose')
-const usePassport = require('./config/passport')
 
 // Define the router
 const router = require('./routes')
@@ -23,7 +28,7 @@ app.set('view engine', 'handlebars')
 // Import related patches and configs
 app.use(methodOverride('_method'))
 app.use(session({
-  secret: 'ACRestaurant',
+  secret: 'process.env.SESSION_SECRET',
   resave: false,
   saveUninitialized: true
 }))
