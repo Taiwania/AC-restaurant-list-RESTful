@@ -6,19 +6,12 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 const user = require('../../models/user')
 
-// Home
+// Home and sorting
 router.get('/', (req, res) => {
   const userId = req.user._id
-  Restaurant.find({ userId })
-    .lean()
-    .sort({ _id: 'asc' })
-    .then((restaurants) => res.render('index', { restaurants }))
-    .catch((error) => console.log(error))
-})
 
-// Sort the restaurants on the index page (under construction)
-router.get('/', (req, res) => {
-  let sortOption = {}
+  // set sorting
+  let sortOption = { _id: 'asc' }
 
   switch (req.query.sort) {
     case 'AtoZ':
@@ -33,16 +26,12 @@ router.get('/', (req, res) => {
     case 'Region':
       sortOption = { location: 1 }
       break
-    default:
-      sortOption = { name: 1 }
-      break
   }
 
-  const userId = req.user._id
-  return Restaurant.find({ userId })
+  Restaurant.find({ userId })
     .lean()
     .sort(sortOption)
-    .then((restaurant) => res.render('index', { restaurants: restaurant }))
+    .then((restaurants) => res.render('index', { restaurants }))
     .catch((error) => console.log(error))
 })
 

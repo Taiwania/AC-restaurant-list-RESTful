@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
     }
     const userId = req.user._id
 
-    return Restaurant.find({ userId, filter })
+    return Restaurant.find({ userId, ...filter })
       .lean()
       .sort(sortOption)
       .then((restaurant) =>
