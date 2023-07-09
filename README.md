@@ -38,7 +38,7 @@
     npm install
     ```
 
-3.  安裝完成後，請建立「.env」檔案，依照「.env.example」的格式設定連到您自己 MongoDB 的連結、Facebook 應用程式編碼及密鑰。
+3.  安裝完成後，請建立「.env」檔案，依照「.env.example」的格式設定連到您自己 MongoDB 的連結、Facebook 應用程式編碼及密鑰。FACEBOOK_CALLBACK、PORT 請直接匯入 .env 不得更動，SESSION_SECRET 可以使用預設字串，也可以使用英數大小寫進行更動。
 
 4.  執行以下指令，匯入本專案的種子資料到 MongoDB 資料庫：
 
