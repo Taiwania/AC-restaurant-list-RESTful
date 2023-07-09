@@ -7,6 +7,7 @@
 1. 另頁顯示個別餐廳的詳細資訊。
 2. 透過搜尋功能（名稱或餐廳分類）尋找特定的餐廳。
 3. 新增、刪除、修改餐廳資料。
+4. 使用者登入機制 (包含本地及 Facebook 登入)，讓每名使用者可以管理自己專屬的餐廳清單。
 
 ## 畫面
 
@@ -21,6 +22,7 @@
 4.  Mongoose version 5.9.7
 5.  Dotenv version 16.3.1
 6.  Method-override 3.0.0
+7.  Passport 0.4.1
 
 ## 安裝流程
 
@@ -36,11 +38,7 @@
     npm install
     ```
 
-3.  安裝完成後，請建立「.env」檔案，依照以下格式設定連到您自己 MongoDB 的連結：
-
-    ```
-    MONGODB_URI=mongodb+srv://<您的 MongoDB 帳號>:<您的 MongoDB 密碼>@xxx.xxx.xxx.net/restaurant-list?retryWrites=true&w=majority
-    ```
+3.  安裝完成後，請建立「.env」檔案，依照「.env.example」的格式設定連到您自己 MongoDB 的連結、Facebook 應用程式編碼及密鑰。
 
 4.  執行以下指令，匯入本專案的種子資料到 MongoDB 資料庫：
 
@@ -65,3 +63,5 @@
     ```
     The website http://localhost:3000 is online.
     ```
+
+    請使用 user1@example.com 或 user2@example.com 進行登入，密碼皆爲 12345678。
