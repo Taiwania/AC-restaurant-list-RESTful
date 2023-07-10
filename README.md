@@ -29,7 +29,7 @@
 1.  打開終端機，cd 移動到預定放置本專案的資料夾，執行以下指令以複製本專案：
 
     ```
-    git clone https://github.com/Taiwania/AC-restaurant-list
+    git clone https://github.com/Taiwania/AC-restaurant-list-RESTful
     ```
 
 2.  在該專案資料夾中，以終端機方式執行安裝 npm：

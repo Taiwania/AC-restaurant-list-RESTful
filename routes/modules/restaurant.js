@@ -55,7 +55,7 @@ router.put('/:id', (req, res) => {
     rating,
     description
   })
-    .then(() => res.redirect(`/restaurant/${id}`))
+    .then(() => res.redirect(`/restaurant/${_id}`))
     .catch((error) => console.log(error))
 })
 
