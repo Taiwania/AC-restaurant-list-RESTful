@@ -42,9 +42,7 @@ router.put('/:id', (req, res) => {
     description
   } = req.body
 
-  return Restaurant.findOneAndUpdate({
-    _id,
-    userId,
+  return Restaurant.findOneAndUpdate({ _id, userId }, {
     name,
     name_en,
     category,

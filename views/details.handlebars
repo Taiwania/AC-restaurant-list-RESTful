@@ -4,7 +4,7 @@
     <div class="col-md-10 mx-auto d-flex">
       <a href="/restaurant/{{restaurant._id}}/edit"><button class="btn btn-light">編輯</button></a>
       <a href="/"><button class="btn btn-light">回到首頁</button></a>
-      <form action="/restaurant/{{restaurant._id}}?_method=DELETE" method="POST">
+      <form action="/restaurant/{{restaurant._id}}?_method=DELETE" method="POST" data-toggle="modal" data-target="#confirmDeleteModal">
         <button type="submit" class="btn btn-danger">刪除</button>
       </form>
     </div>
@@ -46,3 +46,5 @@
     </div>
   </div>
 </div>
+
+{{> confirmDeleteModal}}
